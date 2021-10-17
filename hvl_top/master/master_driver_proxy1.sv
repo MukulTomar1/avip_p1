@@ -1,34 +1,34 @@
-`ifndef MASTER_MONITOR_PROXY_INCLUDED_
-`define MASTER_MONITOR_PROXY_INCLUDED_
+`ifndef MASTER_DRIVER_PROXY_INCLUDED_
+`define MASTER_DRIVER_PROXY_INCLUDED_
 
 //--------------------------------------------------------------------------------------------
-// Class: master_monitor_proxy
+// Class: master_driver_proxy
 // <Description_here>
 //--------------------------------------------------------------------------------------------
-class master_monitor_proxy extends uvm_component;
-  `uvm_component_utils(master_monitor_proxy)
-
+class master_driver_proxy extends uvm_component;
+  `uvm_component_utils(master_driver_proxy)
+ 
   master_agent_config m_age_cfg_h;
   //-------------------------------------------------------
   // Externally defined Tasks and Functions
   //-------------------------------------------------------
-  extern function new(string name = "master_monitor_proxy", uvm_component parent = null);
+  extern function new(string name = "master_driver_proxy", uvm_component parent = null);
   extern virtual function void build_phase(uvm_phase phase);
-  //extern virtual function void connect_phase(uvm_phase phase);
-  //extern virtual function void end_of_elaboration_phase(uvm_phase phase);
-  //extern virtual function void start_of_simulation_phase(uvm_phase phase);
-  //extern virtual task run_phase(uvm_phase phase);
+ // extern virtual function void connect_phase(uvm_phase phase);
+ // extern virtual function void end_of_elaboration_phase(uvm_phase phase);
+ // extern virtual function void start_of_simulation_phase(uvm_phase phase);
+ // extern virtual task run_phase(uvm_phase phase);
 
-endclass : master_monitor_proxy
+endclass : master_driver_proxy
 
 //--------------------------------------------------------------------------------------------
 // Construct: new
 //
 // Parameters:
-//  name - master_monitor_proxy
+//  name - master_driver_proxy
 //  parent - parent under which this component is created
 //--------------------------------------------------------------------------------------------
-function master_monitor_proxy::new(string name = "master_monitor_proxy",
+function master_driver_proxy::new(string name = "master_driver_proxy",
                                  uvm_component parent = null);
   super.new(name, parent);
 endfunction : new
@@ -40,10 +40,10 @@ endfunction : new
 // Parameters:
 //  phase - uvm phase
 //--------------------------------------------------------------------------------------------
-function void master_monitor_proxy::build_phase(uvm_phase phase);
+function void master_driver_proxy::build_phase(uvm_phase phase);
   super.build_phase(phase);
   if(!uvm_config_db #(master_agent_config)::get(this,"","master_agent_config",m_age_cfg_h))
-    `uvm_fatal("CONFIG","cannot get the m_age_cfg_h () . have you set it?")
+    `uvm_fatal("CONFIG","cannot get () m_age_cfg_h from uvm_config_db. Have you set it?")
 endfunction : build_phase
 
 //--------------------------------------------------------------------------------------------
@@ -54,7 +54,7 @@ endfunction : build_phase
 //  phase - uvm phase
 //--------------------------------------------------------------------------------------------
 /*
-function void master_monitor_proxy::connect_phase(uvm_phase phase);
+function void master_driver_proxy::connect_phase(uvm_phase phase);
   super.connect_phase(phase);
 endfunction : connect_phase
 
@@ -65,7 +65,7 @@ endfunction : connect_phase
 // Parameters:
 //  phase - uvm phase
 //--------------------------------------------------------------------------------------------
-function void master_monitor_proxy::end_of_elaboration_phase(uvm_phase phase);
+function void master_driver_proxy::end_of_elaboration_phase(uvm_phase phase);
   super.end_of_elaboration_phase(phase);
 endfunction  : end_of_elaboration_phase
 
@@ -76,7 +76,7 @@ endfunction  : end_of_elaboration_phase
 // Parameters:
 //  phase - uvm phase
 //--------------------------------------------------------------------------------------------
-function void master_monitor_proxy::start_of_simulation_phase(uvm_phase phase);
+function void master_driver_proxy::start_of_simulation_phase(uvm_phase phase);
   super.start_of_simulation_phase(phase);
 endfunction : start_of_simulation_phase
 
@@ -87,9 +87,9 @@ endfunction : start_of_simulation_phase
 // Parameters:
 //  phase - uvm phase
 //--------------------------------------------------------------------------------------------
-task master_monitor_proxy::run_phase(uvm_phase phase);
+task master_driver_proxy::run_phase(uvm_phase phase);
 
-  phase.raise_objection(this, "master_monitor_proxy");
+  phase.raise_objection(this, "master_driver_proxy");
 
   super.run_phase(phase);
 
