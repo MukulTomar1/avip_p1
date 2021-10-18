@@ -10,9 +10,9 @@ class slave_agent extends uvm_component;
 
   slave_agent_config s_age_cfg_h;
   
-  slave_driver_proxy s_dri_h;
   slave_monitor_proxy s_mon_h;
   slave_sequencer s_seqr_h;
+  slave_driver_proxy s_dri_h;
 
   //-------------------------------------------------------
   // Externally defined Tasks and Functions
@@ -45,7 +45,7 @@ endfunction : new
 function void slave_agent::build_phase(uvm_phase phase);
   super.build_phase(phase);
   if(!uvm_config_db #(slave_agent_config)::get(this,"","slave_agent_config",s_age_cfg_h))
-    `uvm_fatal("CONFIG","cannot get() the s_cfg from the uvm_config_db. have you set it?")
+    `uvm_fatal("CONFIG","cannot get() the s_age_cfg_h from the uvm_config_db. have you set it?")
     
     s_mon_h=slave_monitor_proxy::type_id::create("s_mon_h",this);
 

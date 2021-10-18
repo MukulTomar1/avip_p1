@@ -82,7 +82,6 @@ function void base_test::build_phase(uvm_phase phase);
 
   
     e_cfg=env_config::type_id::create("e_cfg",this);
-    uvm_config_db #(env_config)::set(this,"*","env_config",e_cfg);
    
   if(has_master_agent)
     m_age_cfg_h=master_agent_config::type_id::create("m_age_cfg_h");
@@ -92,6 +91,8 @@ function void base_test::build_phase(uvm_phase phase);
   
   config_p;
     
+  //  e_cfg=env_config::type_id::create("e_cfg",this);
+    uvm_config_db #(env_config)::set(this,"*","env_config",e_cfg);
 
     super.build();
 
