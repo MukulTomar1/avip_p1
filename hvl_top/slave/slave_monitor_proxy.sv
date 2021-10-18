@@ -8,7 +8,7 @@
 class slave_monitor_proxy extends uvm_component;
   `uvm_component_utils(slave_monitor_proxy)
 
-  slave_agent_config s_cfg;
+  slave_agent_config s_age_cfg_h;
   //-------------------------------------------------------
   // Externally defined Tasks and Functions
   //-------------------------------------------------------
@@ -42,7 +42,7 @@ endfunction : new
 //--------------------------------------------------------------------------------------------
 function void slave_monitor_proxy::build_phase(uvm_phase phase);
   super.build_phase(phase);
-  if(!uvm_config_db #(slave_agent_config)::get(this,"","slave_agent_config",s_cfg))
+  if(!uvm_config_db #(slave_agent_config)::get(this,"","slave_agent_config",s_age_cfg_h))
     `uvm_fatal("CONFIG","cannot get() the m_cfg from uvm_config_db. Have you set it?")
 endfunction : build_phase
 

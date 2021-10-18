@@ -11,16 +11,16 @@ class master_agent extends uvm_component;
   master_agent_config m_age_cfg_h;
 
 
-  master_driver_proxy m_dri_h;
   master_monitor_proxy m_mon_h;
   master_sequencer m_seqr_h;
+  master_driver_proxy m_dri_h;
 
   //-------------------------------------------------------
   // Externally defined Tasks and Functions
   //-------------------------------------------------------
   extern function new(string name = "master_agent", uvm_component parent = null);
   extern virtual function void build_phase(uvm_phase phase);
-  extern virtual function void connect_phase(uvm_phase phase);
+  //extern virtual function void connect_phase(uvm_phase phase);
 
 endclass : master_agent
 
@@ -44,6 +44,7 @@ endfunction : new
 //  phase - uvm phase
 //--------------------------------------------------------------------------------------------
 function void master_agent::build_phase(uvm_phase phase);
+  
   super.build_phase(phase);
   if(!uvm_config_db #(master_agent_config)::get(this,"","master_agent_config",m_age_cfg_h))
     `uvm_fatal("config","cannot get the config m_cfg from uvm_config_db. Have u set it ?")
@@ -66,6 +67,7 @@ endfunction : build_phase
 // Parameters:
 //  phase - uvm phase
 //--------------------------------------------------------------------------------------------
+/*
 function void master_agent::connect_phase(uvm_phase phase);
   super.connect_phase(phase);
   if(m_age_cfg_h.is_active==UVM_ACTIVE)
@@ -74,7 +76,7 @@ function void master_agent::connect_phase(uvm_phase phase);
     end
 
 endfunction : connect_phase
-
+*/
 
 `endif
 

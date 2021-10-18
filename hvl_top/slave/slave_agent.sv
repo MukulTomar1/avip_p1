@@ -8,7 +8,7 @@
 class slave_agent extends uvm_component;
   `uvm_component_utils(slave_agent)
 
-  slave_agent_config s_cfg;
+  slave_agent_config s_age_cfg_h;
   
   slave_driver_proxy s_dri_h;
   slave_monitor_proxy s_mon_h;
@@ -19,7 +19,7 @@ class slave_agent extends uvm_component;
   //-------------------------------------------------------
   extern function new(string name = "slave_agent", uvm_component parent = null);
   extern virtual function void build_phase(uvm_phase phase);
-  extern virtual function void connect_phase(uvm_phase phase);
+  //extern virtual function void connect_phase(uvm_phase phase);
 
 endclass : slave_agent
 
@@ -44,12 +44,12 @@ endfunction : new
 //--------------------------------------------------------------------------------------------
 function void slave_agent::build_phase(uvm_phase phase);
   super.build_phase(phase);
-  if(!uvm_config_db #(slave_agent_config)::get(this,"","slave_agent_config",s_cfg))
+  if(!uvm_config_db #(slave_agent_config)::get(this,"","slave_agent_config",s_age_cfg_h))
     `uvm_fatal("CONFIG","cannot get() the s_cfg from the uvm_config_db. have you set it?")
     
     s_mon_h=slave_monitor_proxy::type_id::create("s_mon_h",this);
 
-    if(s_cfg.is_active==UVM_ACTIVE)
+    if(s_age_cfg_h.is_active==UVM_ACTIVE)
       begin
 
         s_dri_h=slave_driver_proxy::type_id::create("s_dri_h",this);
@@ -67,6 +67,7 @@ endfunction : build_phase
 // Parameters:
 //  phase - uvm phase
 //--------------------------------------------------------------------------------------------
+/*
 function void slave_agent::connect_phase(uvm_phase phase);
 
   if(s_cfg.is_active==UVM_ACTIVE)
@@ -74,7 +75,7 @@ function void slave_agent::connect_phase(uvm_phase phase);
     s_dri_h.seq_item_port.connect(s_seqr_h.seq_item_export);
   end
 endfunction : connect_phase
-
+*/
 
 `endif
 

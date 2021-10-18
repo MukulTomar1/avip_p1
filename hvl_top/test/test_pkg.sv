@@ -17,7 +17,7 @@ package test_pkg;
   `include "../hvl_top/master/master_agent_config.sv"
   `include "../hvl_top/slave/slave_agent_config.sv"
   `include "../hvl_top/environment/env_config.sv"
-  `include "master_xtn.sv"  
+  //`include "master_xtn.sv"  
   `include "master_sequencer.sv"
   `include "master_driver_proxy.sv"
   `include "master_monitor_proxy.sv"

@@ -42,25 +42,24 @@ endfunction : new
 // function :config_p
 //--------------------------------------------------------------------------------------------
 
-function void base_test::config_p;
+function void base_test::config_p();
 
   if(has_master_agent)
   begin
-  if(!uvm_config_db #(virtual spi_if)::get(this,"","vif",m_age_cfg_h.vif))
+  /*
+    if(!uvm_config_db #(virtual spi_if)::get(this,"","vif",m_age_cfg_h.vif))
     `uvm_fatal("VIF_CONFIG","cannot get()interface vif from the uvm_config_db. Have you set it?")
-    //super.build_phase(phase);
-
+*/
     m_age_cfg_h.is_active = UVM_ACTIVE;
     e_cfg.m_age_cfg_h = m_age_cfg_h;
 
   end
-
-  if(has_slave_agent)
+  if(has_slave_agent)//  begin
   begin
-  if(!uvm_config_db #(virtual spi_if)::get(this,"","vif",s_age_cfg_h.vif))
+  /*
+    if(!uvm_config_db #(virtual spi_if)::get(this,"","vif",s_age_cfg_h.vif))
     `uvm_fatal("VIF_CONFIG","cannot get()interface vif from the uvm_config_db. Have you set it?")
-    //super.build_phase(phase);
-
+*/
     s_age_cfg_h.is_active = UVM_ACTIVE;
     e_cfg.s_age_cfg_h = s_age_cfg_h;
 
@@ -81,16 +80,21 @@ endfunction : config_p
 function void base_test::build_phase(uvm_phase phase);
   super.build_phase(phase);
 
+  
+    e_cfg=env_config::type_id::create("e_cfg",this);
+    uvm_config_db #(env_config)::set(this,"*","env_config",e_cfg);
+   
   if(has_master_agent)
     m_age_cfg_h=master_agent_config::type_id::create("m_age_cfg_h");
 
   if(has_slave_agent)
     s_age_cfg_h=slave_agent_config::type_id::create("s_age_cfg_h");
   
-    config_p;
-    uvm_config_db #(e_cfg)::set(this,"*","e_cfg",e_cfg);
+  config_p;
+    
 
     super.build();
+
     env_h=env::type_id::create("env_h",this);
 
 endfunction : build_phase
