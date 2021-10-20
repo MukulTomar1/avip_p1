@@ -1,5 +1,5 @@
 # vsim -novopt work.hvl_top work.hdl_top -c -do "log -r /*; add wave -r /*; run -all;" -wlf waveform.wlf 
-# Start time: 16:17:21 on Oct 18,2021
+# Start time: 10:42:37 on Oct 20,2021
 # ** Warning: (vsim-8891) All optimizations are turned off because the -novopt switch is in effect. This will cause your simulation to run very slowly. If you are using this switch to preserve visibility for Debug or PLI features please see the User's Manual section on Preserving Object Visibility with vopt.
 # //  Questa Sim
 # //  Version 10.6c linux Jul 25 2017
@@ -34,6 +34,16 @@
 # Loading mtiUvm.questa_uvm_pkg
 # Loading /tools/mentor/questasim_10.6c/questasim/uvm-1.1d/linux/uvm_dpi.so
 # log -r /*
+# ** Error: Unable to lock WLF file "waveform.wlf". Retrying 1 times, errno 11
+# ** Error: Unable to lock WLF file "waveform.wlf". Retrying 2 times, errno 11
+# ** Error: Unable to lock WLF file "waveform.wlf". Retrying 3 times, errno 11
+# ** Error: Cannot lock WLF file: "waveform.wlf"
+#           errno 11: Resource temporarily unavailable.
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: waveform.wlf
+#           File in use by: mukultomar  Hostname: pdserver.mirafra.com  ProcessID: 20917
+#           Attempting to use alternate WLF file "./wlftcgL2rz".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: waveform.wlf
+#           Using alternate file: ./wlftcgL2rz
 #  add wave -r /*
 #  run -all
 # ----------------------------------------------------------------
@@ -63,41 +73,19 @@
 # Slave Agent BFM
 # Slave Driver BFM
 # Slave Monitor BFM
-# UVM_INFO @ 0: reporter [UVMTOP] UVM testbench topology:
-# ------------------------------------------------------------
-# Name                   Type                      Size  Value
-# ------------------------------------------------------------
-# uvm_test_top           base_test                 -     @469 
-#   env_h                env                       -     @483 
-#     m_age_h            master_agent              -     @495 
-#       m_dri_h          master_driver_proxy       -     @535 
-#         rsp_port       uvm_analysis_port         -     @550 
-#         seq_item_port  uvm_seq_item_pull_port    -     @542 
-#       m_mon_h          master_monitor_proxy      -     @528 
-#       m_seqr_h         master_sequencer          -     @558 
-#     m_v_seqr_h         master_virtual_sequencer  -     @513 
-#       m_seqr_h         master_sequencer          -     @568 
-#     s_age_h            slave_agent               -     @506 
-#       s_dri_h          slave_driver_proxy        -     @583 
-#       s_mon_h          slave_monitor_proxy       -     @576 
-#       s_seqr_h         slave_sequencer           -     @590 
-#     s_v_seqr_h         slave_virtual_sequencer   -     @520 
-#       s_seqr_h         slave_sequencer           -     @599 
-# ------------------------------------------------------------
+# ** Fatal: (SIGSEGV) Bad handle or reference.
+#    Time: 0 ns  Iteration: 7  Process: /uvm_pkg::uvm_phase::m_run_phases/#FORK#1847_f6affb9 File: /tools/mentor/questasim_10.6c/questasim/linux/../verilog_src/uvm-1.1d/src/base/uvm_common_phases.svh
+# Fatal error in Function test_pkg/slave_agent::build_phase at ../hvl_top/slave/slave_agent.sv line 52
+# 
+# HDL call sequence:
+# Stopped at ../hvl_top/slave/slave_agent.sv 52 Function test_pkg/slave_agent::build_phase
+# called from  /tools/mentor/questasim_10.6c/questasim/linux/../verilog_src/uvm-1.1d/src/base/uvm_common_phases.svh 54 Function uvm_pkg/uvm_build_phase::exec_func
+# called from  /tools/mentor/questasim_10.6c/questasim/linux/../verilog_src/uvm-1.1d/src/base/uvm_topdown_phase.svh 111 Function uvm_pkg/uvm_topdown_phase::execute
+# called from  /tools/mentor/questasim_10.6c/questasim/linux/../verilog_src/uvm-1.1d/src/base/uvm_topdown_phase.svh 78 Function uvm_pkg/uvm_topdown_phase::traverse
+# called from  /tools/mentor/questasim_10.6c/questasim/linux/../verilog_src/uvm-1.1d/src/base/uvm_topdown_phase.svh 95 Function uvm_pkg/uvm_topdown_phase::traverse
+# called from  /tools/mentor/questasim_10.6c/questasim/linux/../verilog_src/uvm-1.1d/src/base/uvm_topdown_phase.svh 95 Function uvm_pkg/uvm_topdown_phase::traverse
+# called from  /tools/mentor/questasim_10.6c/questasim/linux/../verilog_src/uvm-1.1d/src/base/uvm_topdown_phase.svh 95 Function uvm_pkg/uvm_topdown_phase::traverse
+# called from  /tools/mentor/questasim_10.6c/questasim/linux/../verilog_src/uvm-1.1d/src/base/uvm_phase.svh 1156 Task uvm_pkg/uvm_phase::execute_phase
+# called from  /tools/mentor/questasim_10.6c/questasim/linux/../verilog_src/uvm-1.1d/src/base/uvm_phase.svh 1847 Task uvm_pkg/uvm_phase::m_run_phases
 # 
 # 
-# --- UVM Report Summary ---
-# 
-# ** Report counts by severity
-# UVM_INFO :    4
-# UVM_WARNING :    0
-# UVM_ERROR :    0
-# UVM_FATAL :    0
-# ** Report counts by id
-# [Questa UVM]     2
-# [RNTST]     1
-# [UVMTOP]     1
-# ** Note: $finish    : /tools/mentor/questasim_10.6c/questasim/linux/../verilog_src/uvm-1.1d/src/base/uvm_root.svh(430)
-#    Time: 0 ns  Iteration: 215  Instance: /hvl_top
-# End time: 16:17:24 on Oct 18,2021, Elapsed time: 0:00:03
-# Errors: 0, Warnings: 1

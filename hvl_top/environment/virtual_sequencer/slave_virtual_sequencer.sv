@@ -8,7 +8,7 @@
 class slave_virtual_sequencer extends uvm_component;
   `uvm_component_utils(slave_virtual_sequencer)
 
-  slave_sequencer s_seqr_h;
+  slave_sequencer s_seqr_h[];
 
   env_config e_cfg;
   //-------------------------------------------------------
@@ -44,8 +44,9 @@ function void slave_virtual_sequencer::build_phase(uvm_phase phase);
   if(!uvm_config_db #(env_config)::get(this,"","env_config",e_cfg))
     `uvm_fatal("CONFIG","cannot get() the e_cfg from the uvm_config_db . Have you set it?")
 
-    s_seqr_h=slave_sequencer::type_id::create("s_seqr_h",this);
-
+    s_seqr_h=new[e_cfg.no_of_duts];
+   // s_seqr_h=slave_sequencer::type_id::create("s_seqr_h",this);
+       
 endfunction : build_phase
 
 `endif

@@ -12,9 +12,11 @@ class env_config extends uvm_object;
   bit has_slave_agent = 1;
   bit has_master_virtual_sequencer = 1;
   bit has_slave_virtual_sequencer = 1;
+  int no_of_duts;
 
   master_agent_config m_age_cfg_h;
-  slave_agent_config s_age_cfg_h;
+  slave_agent_config s_age_cfg_h[];
+
 
 
   //-------------------------------------------------------

@@ -11,11 +11,10 @@ class env extends uvm_env;
   master_agent m_age_h;
   master_virtual_sequencer m_v_seqr_h;
 
-  slave_agent s_age_h;
+  slave_agent s_age_h[];
   slave_virtual_sequencer s_v_seqr_h;
 
   env_config e_cfg;
-
   //-------------------------------------------------------
   // Externally defined Tasks and Functions
   //-------------------------------------------------------
@@ -46,7 +45,7 @@ endfunction : new
 //--------------------------------------------------------------------------------------------
 function void env::build_phase(uvm_phase phase);
   super.build_phase(phase);
-  
+
   if(!uvm_config_db #(env_config)::get(this,"","env_config",e_cfg))
     `uvm_fatal("CONFIG","cannot get() the e_cfg from the uvm_config_db . Have you set it?")
 
@@ -55,7 +54,6 @@ function void env::build_phase(uvm_phase phase);
     begin
     
       uvm_config_db #(master_agent_config)::set(this,"m_age_h*","master_agent_config",
-      
       e_cfg.m_age_cfg_h);
       
       m_age_h=master_agent::type_id::create("m_age_h",this);
@@ -63,16 +61,18 @@ function void env::build_phase(uvm_phase phase);
     end
 
     if(e_cfg.has_slave_agent)
+     begin    
+    s_age_h=new[e_cfg.no_of_duts];    
     
-    begin
+      foreach(s_age_h[i])
+      begin    
     
-      uvm_config_db #(slave_agent_config)::set(this,"s_age_h*","slave_agent_config",
-      
-      e_cfg.s_age_cfg_h);
-      
-      s_age_h=slave_agent::type_id::create("s_age_h",this);
+      uvm_config_db #(slave_agent_config)::set(this,$sformatf("s_age_h[%0d]*",i),"slave_agent_config",
+      e_cfg.s_age_cfg_h[i]);
+      s_age_h[i]=slave_agent::type_id::create($sformatf("s_age_h[%0d]",i),this);
     end
-
+  end
+   
     if(e_cfg.has_master_virtual_sequencer)
 
      m_v_seqr_h=master_virtual_sequencer::type_id::create("m_v_seqr_h",this);
@@ -100,7 +100,8 @@ function void env::connect_phase(uvm_phase phase);
     end
     if(e_cfg.has_slave_agent)
     begin
-      s_v_seqr_h.s_seqr_h=s_age_h.s_seqr_h;
+      foreach(s_age_h[i])
+      s_v_seqr_h.s_seqr_h[i]=s_age_h[i].s_seqr_h;
     end
   end
 endfunction : connect_phase
