@@ -8,12 +8,12 @@
 class master_agent extends uvm_component;
   `uvm_component_utils(master_agent)
 
-  master_agent_config m_age_cfg_h;
+  master_agent_config master_agent_cfg_h;
 
 
-  master_monitor_proxy m_mon_h;
-  master_sequencer m_seqr_h;
-  master_driver_proxy m_dri_h;
+  master_monitor_proxy master_monitor_h;
+  master_sequencer master_seqr_h;
+  master_driver_proxy master_driver_h;
 
   //-------------------------------------------------------
   // Externally defined Tasks and Functions
@@ -46,16 +46,16 @@ endfunction : new
 function void master_agent::build_phase(uvm_phase phase);
   
   super.build_phase(phase);
-  if(!uvm_config_db #(master_agent_config)::get(this,"","master_agent_config",m_age_cfg_h))
+  if(!uvm_config_db #(master_agent_config)::get(this,"","master_agent_config",master_agent_cfg_h))
     `uvm_fatal("config","cannot get the config m_cfg from uvm_config_db. Have u set it ?")
     
-    m_mon_h=master_monitor_proxy::type_id::create("m_mon_h",this);
+    master_monitor_h=master_monitor_proxy::type_id::create("master_monitor_h",this);
   
-  if(m_age_cfg_h.is_active==UVM_ACTIVE)
+  if(master_agent_cfg_h.is_active==UVM_ACTIVE)
   
   begin
-    m_dri_h=master_driver_proxy::type_id::create("m_dri_h",this);
-    m_seqr_h=master_sequencer::type_id::create("m_seqr_h",this);
+    master_driver_h=master_driver_proxy::type_id::create("master_driver_h",this);
+    master_seqr_h=master_sequencer::type_id::create("master_seqr_h",this);
   end
 
 endfunction : build_phase
@@ -70,9 +70,9 @@ endfunction : build_phase
 /*
 function void master_agent::connect_phase(uvm_phase phase);
   super.connect_phase(phase);
-  if(m_age_cfg_h.is_active==UVM_ACTIVE)
+  if(master_agent_cfg_h.is_active==UVM_ACTIVE)
     begin
-      m_dri_h.seq_item_port.connect(m_seqr_h.seq_item_export);
+      master_driver_h.seq_item_port.connect(master_seqr_h.seq_item_export);
     end
 
 endfunction : connect_phase

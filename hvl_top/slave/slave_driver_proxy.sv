@@ -8,7 +8,7 @@
 class slave_driver_proxy extends uvm_component;
   `uvm_component_utils(slave_driver_proxy)
 
-  slave_agent_config s_age_cfg_h;
+  slave_agent_config slave_agent_cfg_h;
   //-------------------------------------------------------
   // Externally defined Tasks and Functions
   //-------------------------------------------------------
@@ -42,8 +42,8 @@ endfunction : new
 //--------------------------------------------------------------------------------------------
 function void slave_driver_proxy::build_phase(uvm_phase phase);
   super.build_phase(phase);
- // if(uvm_config_db #(slave_agent_config)::get(this,"","slave_agent_config",s_age_cfg_h))
-  //  `uvm_fatal("CONFIG","cannot get s_age_cfg_h from the uvm_config_db. Have you set it?")
+ // if(uvm_config_db #(slave_agent_config)::get(this,"","slave_agent_config",slave_agent_cfg_h))
+  //  `uvm_fatal("CONFIG","cannot get slave_agent_cfg_h from the uvm_config_db. Have you set it?")
 endfunction : build_phase
 
 //--------------------------------------------------------------------------------------------

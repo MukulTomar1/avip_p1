@@ -1,4 +1,7 @@
-//--------------------------------------------------------------------------------------------
+`ifndef TEST_PKG_INCLUDED_
+`define TEST_PKG_INCLUDED_
+
+//-----------------------------------------------------------------------------------------
 // Package: Test
 // Description:
 // Includes all the files written to run the simulation
@@ -10,39 +13,21 @@ package test_pkg;
   //-------------------------------------------------------
   `include "uvm_macros.svh"
   import uvm_pkg::*;
-  
-  //-------------------------------------------------------
-  // Include master files
-  //-------------------------------------------------------
-  `include "../hvl_top/master/master_agent_config.sv"
-  `include "../hvl_top/slave/slave_agent_config.sv"
-  `include "../hvl_top/environment/env_config.sv"
-  //`include "master_xtn.sv"  
-  `include "master_sequencer.sv"
-  `include "master_driver_proxy.sv"
-  `include "master_monitor_proxy.sv"
-  `include "master_agent.sv"
-  
- 
-   
-  //-------------------------------------------------------
-  // Include all other files
-  //-------------------------------------------------------
-  //`include "slave_tx.sv"
-  `include "slave_sequence.sv"
-  `include "slave_sequencer.sv"
-  `include "slave_driver_proxy.sv"
-  `include "slave_monitor_proxy.sv"
-  `include "slave_agent.sv"
-  
-  `include "../hvl_top/environment/virtual_sequencer/master_virtual_sequencer.sv"
-  `include "../hvl_top/environment/virtual_sequencer/slave_virtual_sequencer.sv"
-  //`include "slave_virtual_sequence.sv"
-  //`include "master_virtual_sequence.sv"
-  `include "../hvl_top/environment/env.sv"
 
-  `include "base_test.sv"
+  //-------------------------------------------------------
+  // Importing the required packages
+  //-------------------------------------------------------
+  import spi_globals_pkg::*;
+  import spi_master_pkg::*;
+  import spi_slave_pkg::*;
+  import spi_env_pkg::*;
+  //import spi_master_seq_pkg::*;
+  //import spi_slave_seq_pkg::*;
+  //import spi_virtual_seq_pkg::*;
 
-  // `include "env_config.sv"
+ //including base_test for testing
+ `include "base_test.sv"
 
-endpackage :test_pkg
+endpackage : test_pkg
+
+`endif

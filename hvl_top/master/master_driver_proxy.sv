@@ -8,7 +8,7 @@
 class master_driver_proxy extends uvm_driver;
   `uvm_component_utils(master_driver_proxy)
  
-  master_agent_config m_age_cfg_h;
+  master_agent_config master_agent_cfg_h;
   //-------------------------------------------------------
   // Externally defined Tasks and Functions
   //-------------------------------------------------------
@@ -42,8 +42,8 @@ endfunction : new
 //--------------------------------------------------------------------------------------------
 function void master_driver_proxy::build_phase(uvm_phase phase);
   super.build_phase(phase);
-  if(!uvm_config_db #(master_agent_config)::get(this,"","master_agent_config",m_age_cfg_h))
-    `uvm_fatal("CONFIG","cannot get () m_age_cfg_h from uvm_config_db. Have you set it?")
+  if(!uvm_config_db #(master_agent_config)::get(this,"","master_agent_config",master_agent_cfg_h))
+    `uvm_fatal("CONFIG","cannot get () master_agent_cfg_h from uvm_config_db. Have you set it?")
 endfunction : build_phase
 
 //--------------------------------------------------------------------------------------------

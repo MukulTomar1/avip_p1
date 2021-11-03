@@ -8,8 +8,8 @@
 class master_virtual_sequencer extends uvm_component;
   `uvm_component_utils(master_virtual_sequencer)
 
-  master_sequencer m_seqr_h;
-  env_config e_cfg;
+  master_sequencer master_seqr_h;
+  env_config env_cfg_h;
   //-------------------------------------------------------
   // Externally defined Tasks and Functions
   //-------------------------------------------------------
@@ -39,10 +39,10 @@ endfunction : new
 //--------------------------------------------------------------------------------------------
 function void master_virtual_sequencer::build_phase(uvm_phase phase);
   super.build_phase(phase);
-  if(!uvm_config_db #(env_config)::get(this,"","env_config",e_cfg))
-    `uvm_fatal("CONFIG","cannot get() the e_cfg from the uvm_config_db . Have you set it?")
+  if(!uvm_config_db #(env_config)::get(this,"","env_config",env_cfg_h))
+    `uvm_fatal("CONFIG","cannot get() the env_cfg_h from the uvm_config_db . Have you set it?")
 
-    m_seqr_h=master_sequencer::type_id::create("m_seqr_h",this);
+    master_seqr_h=master_sequencer::type_id::create("master_seqr_h",this);
 
 endfunction : build_phase
 

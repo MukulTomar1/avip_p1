@@ -8,7 +8,7 @@
 class master_monitor_proxy extends uvm_component;
   `uvm_component_utils(master_monitor_proxy)
 
-  master_agent_config m_age_cfg_h;
+  master_agent_config master_agent_cfg_h;
   //-------------------------------------------------------
   // Externally defined Tasks and Functions
   //-------------------------------------------------------
@@ -42,8 +42,8 @@ endfunction : new
 //--------------------------------------------------------------------------------------------
 function void master_monitor_proxy::build_phase(uvm_phase phase);
   super.build_phase(phase);
-  if(!uvm_config_db #(master_agent_config)::get(this,"","master_agent_config",m_age_cfg_h))
-    `uvm_fatal("CONFIG","cannot get the m_age_cfg_h () . have you set it?")
+  if(!uvm_config_db #(master_agent_config)::get(this,"","master_agent_config",master_agent_cfg_h))
+    `uvm_fatal("CONFIG","cannot get the master_agent_cfg_h () . have you set it?")
 endfunction : build_phase
 
 //--------------------------------------------------------------------------------------------
