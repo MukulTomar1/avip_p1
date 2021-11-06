@@ -58,6 +58,7 @@ endfunction : build_phase
 
 function void base_test::setup_env_cfg();
     env_cfg_h = env_config::type_id::create("env_cfg_h");
+    env_cfg_h.no_of_masters = NO_OF_MASTERS;
     env_cfg_h.no_of_slaves = NO_OF_SLAVES;
     //env_cfg_h.has_scoreboard = 1;
     env_cfg_h.has_virtual_sequencer = 1;
@@ -79,10 +80,13 @@ function void base_test::setup_env_cfg();
 // and store the handle into the config_db
 //--------------------------------------------------------------------------------------------
 function void base_test::setup_master_agent_cfg();
-  env_cfg_h.master_agent_cfg_h = master_agent_config::type_id::create("master_agent_cfg_h");
+  env_cfg_h.master_agent_cfg_h = new[env_cfg_h.no_of_masters];
+  foreach(env_cfg_h.master_agent_cfg_h[i])begin
+
+  env_cfg_h.master_agent_cfg_h[i] = master_agent_config::type_id::create($sformatf("master_agent_cfg_h[%0d]",i));
   // Configure the Master agent configuration
-  env_cfg_h.master_agent_cfg_h.is_active            = uvm_active_passive_enum'(UVM_ACTIVE);
-  env_cfg_h.master_agent_cfg_h.no_of_slaves         = NO_OF_SLAVES;
+  env_cfg_h.master_agent_cfg_h[i].is_active            = uvm_active_passive_enum'(UVM_ACTIVE);
+  //env_cfg_h.master_agent_cfg_h[i].no_of_slaves         = NO_OF_SLAVES;
   //env_cfg_h.master_agent_cfg_h.spi_mode             = operation_modes_e'(CPOL0_CPHA0);
   //env_cfg_h.master_agent_cfg_h.shift_dir            = shift_direction_e'(LSB_FIRST);
   //env_cfg_h.master_agent_cfg_h.c2tdelay             = 1;
@@ -92,8 +96,9 @@ function void base_test::setup_master_agent_cfg();
   //env_cfg_h.master_agent_cfg_h.has_coverage         = 1;
 
 
-  uvm_config_db #(master_agent_config)::set(this,"*master_agent*","master_agent_config",env_cfg_h.master_agent_cfg_h);
-  env_cfg_h.master_agent_cfg_h.print();
+  uvm_config_db #(master_agent_config)::set(this,$sformatf("*master_agent_h[%0d]*",i),"master_agent_config",env_cfg_h.master_agent_cfg_h[i]);
+  env_cfg_h.master_agent_cfg_h[i].print();
+end
 endfunction: setup_master_agent_cfg
 
 //--------------------------------------------------------------------------------------------

@@ -9,6 +9,7 @@ package globals_pkg;
 
 // NO_OF_SLAVES to be connected to the spi_interface
 
+parameter int NO_OF_MASTERS = 1;
 parameter int NO_OF_SLAVES = 1;
 
 endpackage : globals_pkg 

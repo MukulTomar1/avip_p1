@@ -9,8 +9,9 @@ class env_config extends uvm_object;
   `uvm_object_utils(env_config)
 
   bit has_virtual_sequencer = 1;
+  int no_of_masters;
   int no_of_slaves;
-  master_agent_config master_agent_cfg_h;
+  master_agent_config master_agent_cfg_h[];
   slave_agent_config slave_agent_cfg_h[];
 
 
