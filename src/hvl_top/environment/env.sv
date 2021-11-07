@@ -14,6 +14,7 @@ class env extends uvm_env;
   virtual_sequencer virtual_seqr_h;
 
   env_config env_cfg_h;
+  scoreboard scoreboard_h;
   //-------------------------------------------------------
   // Externally defined Tasks and Functions
   //-------------------------------------------------------
@@ -61,6 +62,11 @@ function void env::build_phase(uvm_phase phase);
     if(env_cfg_h.has_virtual_sequencer)
 
      virtual_seqr_h=virtual_sequencer::type_id::create("virtual_seqr_h",this);
+    
+     if(env_cfg_h.has_scoreboard)
+
+     scoreboard_h=scoreboard::type_id::create("scoreboard_h",this);
+
 
 endfunction : build_phase
 
@@ -77,10 +83,11 @@ function void env::connect_phase(uvm_phase phase);
   begin
     foreach(master_agent_h[i])begin
       virtual_seqr_h.master_seqr_h=master_agent_h[i].master_seqr_h;
+      master_agent_h[i].master_monitor_h.master_analysis_port.connect(scoreboard_h.master_analysis_fifo.analysis_export); 
     end
     foreach(slave_agent_h[i])begin
       virtual_seqr_h.slave_seqr_h=slave_agent_h[i].slave_seqr_h;
-
+      slave_agent_h[i].slave_monitor_h.slave_analysis_port.connect(scoreboard_h.slave_analysis_fifo.analysis_export);
     end
   end
 endfunction : connect_phase

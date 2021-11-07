@@ -21,7 +21,7 @@ package env_pkg;
   `include "virtual_sequencer.sv"
 
   // SCOREBOARD
-  //`include "scoreboard.sv"
+  `include "scoreboard.sv"
 
   // Coverage 
 

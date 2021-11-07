@@ -9,6 +9,8 @@ class master_monitor_proxy extends uvm_component;
   `uvm_component_utils(master_monitor_proxy)
 
   master_agent_config master_agent_cfg_h;
+
+  uvm_analysis_port #(master_tx)master_analysis_port;
   //-------------------------------------------------------
   // Externally defined Tasks and Functions
   //-------------------------------------------------------
@@ -42,8 +44,10 @@ endfunction : new
 //--------------------------------------------------------------------------------------------
 function void master_monitor_proxy::build_phase(uvm_phase phase);
   super.build_phase(phase);
-  if(!uvm_config_db #(master_agent_config)::get(this,"","master_agent_config",master_agent_cfg_h))
+  if(!uvm_config_db #(master_agent_config)::get(this,"","master_agent_config",master_agent_cfg_h))begin
     `uvm_fatal("CONFIG","cannot get the master_agent_cfg_h () . have you set it?")
+  end
+    master_analysis_port=new("master_analysis_port",this);
 endfunction : build_phase
 
 //--------------------------------------------------------------------------------------------

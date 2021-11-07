@@ -9,6 +9,9 @@ class slave_monitor_proxy extends uvm_component;
   `uvm_component_utils(slave_monitor_proxy)
 
   slave_agent_config slave_agent_cfg_h;
+
+
+  uvm_analysis_port #(slave_tx)slave_analysis_port;
   //-------------------------------------------------------
   // Externally defined Tasks and Functions
   //-------------------------------------------------------
@@ -42,8 +45,11 @@ endfunction : new
 //--------------------------------------------------------------------------------------------
 function void slave_monitor_proxy::build_phase(uvm_phase phase);
   super.build_phase(phase);
-  if(!uvm_config_db #(slave_agent_config)::get(this,"","slave_agent_config",slave_agent_cfg_h))
+  if(!uvm_config_db #(slave_agent_config)::get(this,"","slave_agent_config",slave_agent_cfg_h))begin
     `uvm_fatal("CONFIG","cannot get() the m_cfg from uvm_config_db. Have you set it?")
+  end
+
+    slave_analysis_port=new("slave_analysis_port",this);
 endfunction : build_phase
 
 //--------------------------------------------------------------------------------------------

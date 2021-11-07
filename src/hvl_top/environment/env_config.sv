@@ -8,6 +8,7 @@
 class env_config extends uvm_object;
   `uvm_object_utils(env_config)
 
+  bit has_scoreboard = 1;
   bit has_virtual_sequencer = 1;
   int no_of_masters;
   int no_of_slaves;
